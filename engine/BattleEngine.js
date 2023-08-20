@@ -1,5 +1,9 @@
+import { makeAutoObservable, observable, computed, action, flow } from "mobx"
+
 class BattleEngine{
     constructor(player, enemy) {
+
+        makeAutoObservable(this);
         this.playerBase = player
         this.enemyBase = enemy
         
