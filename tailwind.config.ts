@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        'custom-bg': "url(/public/assets/bg/MEMEOSPHERE.png)",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
