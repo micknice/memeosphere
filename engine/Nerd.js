@@ -6,26 +6,36 @@ class Nerd extends Hero {
         super()
         this.img = NerdImg
         this.moves = {
-            'Beta-Test': {
+                'Beta-Test': {
                     name: 'Beta Test',
                     target: 'enemy',
                     effect: 'Deals a small amount of damage while returning a report on enemies hidden attributes. After using Beta Test the Early Access ability can be used.',
-                    cost: [10, 'ap']
+                    cost: [10, 'ap'],
+                    level:1
 
                 },
                 'D-20': {
                     name: 'D-20',
                     target: 'enemy',
                     effect: 'Roll a single D-20. Deals the same damage as on the Die',
-                    const: [10, 'ap']
-
+                    const: [10, 'ap'],
+                    level: 1
                 },
                 'EarlyAccess': {
                     name: 'Early Access',
                     target: 'enemy',
                     effect: 'Deals mid-damage',
-                    cost: [15, 'ap']
+                    cost: [15, 'ap'],
+                    level: 1
+                },
+                'BugFix': {
+                    name: 'Bug Fix',
+                    target: 'self',
+                    effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+                    cost: [20, 'mp'],
+                    level: 1
                 }
+
             
         }
     }

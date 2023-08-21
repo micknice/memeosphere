@@ -7,10 +7,16 @@ import SpeechLeft from '../public/assets/bg/speechbubbleleft.png'
 
 
 const HeroCard = (props: any) => {
+    
+
+    const enemy = props.enemy
+
+    const movesArr = Object.keys(enemy.moves)
+    console.log(movesArr)
 
     let enemyImg = Anonymous
-    if (props.img) {
-        enemyImg = props.img
+    if (enemy.img) {
+        enemyImg = enemy.img
     }
     return (
         <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-300 to-gray-400  relative  shadow-2xl'>
@@ -22,9 +28,9 @@ const HeroCard = (props: any) => {
                         <Image className='h-full w-full' src={enemyImg} alt={''}/>
                     </div>
                     <div className='outline outline-4 rounded-lg h-full  bg-gradient-to-r from-blue-100 to-blue-900 00 w-2/3 p-4 flex-row'>
-                        <p className='p-2 font-mono text-xl text-white'>HP: {props.hp}</p>
-                        <p className='p-2 font-mono text-xl text-white'>AP: {props.ap}</p>
-                        <p className='p-2 font-mono text-xl text-white'>MP: {props.mp}</p>
+                        <p className='rounded-lg p-2 font-mono text-xl text-white shadow-xl'>HP: {props.hp}</p>
+                        <p className='rounded-lg p-2 font-mono text-xl text-white shadow-xl'>AP: {props.ap}</p>
+                        <p className='rounded-lg p-2 font-mono text-xl text-white shadow-xl'>MP: {props.mp}</p>
                     </div>
 
                 </div>
@@ -32,7 +38,13 @@ const HeroCard = (props: any) => {
             </div>
             <div className=' p-4 h-3/5'>
                 <div className='outline outline-4 rounded-lg h-full w-full p-4 flex-row bg-gradient-to-r from-blue-100 to-blue-900 '>
-                    <p>moves go here</p>
+                {movesArr.map((move) => {
+                            return (
+                                <div className='  w-1/2 hover:scale-105'>
+                                    <p className='rounded-lg p-2 font-mono text-xl text-white shadow-xl hover:scale-105'>{move}</p>
+                                </div>
+                            )
+                        })}
                 </div>
 
             </div>

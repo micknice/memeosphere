@@ -5,6 +5,9 @@ class Influencer extends Hero {
     constructor() {
         super()
         this.img = InfImg
+        this.moves = {
+            
+        }
     }
 
     rollHp() {
