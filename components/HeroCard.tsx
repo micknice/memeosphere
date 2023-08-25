@@ -12,6 +12,9 @@ import cross from '../public/assets/ui/pixelCrossRed.png'
 const HeroCard = observer((props: any) => {
     const player = props.player
 
+    const flashArrow = () => {
+        
+    }
     const handleMoveSelect = (move: any) => {
         battleStore.battleEngine.executePlayerMove(move.name)
         
@@ -66,7 +69,7 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div onClick={(event) => handleNotEnoughPoints(move)} className='  w-5/6  select-none' >
-                                            <p className='rounded-lg p-2 font-mono text-l text-black shadow-xl'>{move.name}</p>
+                                            <p className='bg-red-600 bg-opacity-10 rounded-lg p-2 font-mono text-l text-gray-200 shadow-xl'>{move.name}</p>
                                             <p></p>
                                         </div>
                                     )
@@ -109,7 +112,7 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div className='  w-full  select-none col-span-3' >
-                                            <p className='rounded-lg p-2 font-mono text-l text-black shadow-xl'>{move.cost[0]}</p>
+                                            <p className='rounded-lg p-2 font-mono text-l text-gray-300 '>{move.cost[1].toUpperCase()} LOW</p>
                                             <p></p>
                                         </div>
                                     )

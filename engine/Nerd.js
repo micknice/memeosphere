@@ -22,9 +22,12 @@ class Nerd  {
             cost: [10, 'ap'],
             level:1,
             function: (enemy) => {
+                console.log('pre reassignment', this.moves)
                 enemy.hp = enemy.hp - 10
-                // this.moves = this.evoMoves
+                this.evolveMoveSet()
+                
                 console.log('moves', this.moves)
+                this.getMovesArr()
             }
         },
         'D-20': {
@@ -129,23 +132,7 @@ class Nerd  {
         }
         
     }
-    evoMoves = {
-        'Beta-Test': {
-            'EarlyAccess': {
-                name: 'EarlyAccess',
-                target: 'enemy',
-                effect: 'Deals mid-damage',
-                cost: [15, 'ap'],
-                level: 1,
-                function: (enemy) => {
-                    enemy.hp = enemy.hp - 20
-                }
-            }
-        }
-        
-        
-        
-    }
+    
             
     constructor() {
         makeAutoObservable(this)
@@ -209,6 +196,9 @@ class Nerd  {
         const moves = Object.values(this.moves)
         this.movesArr = moves
         return moves
+    }
+    evolveMoveSet() {
+        this.moves = this.evoMoves
     }
 
 

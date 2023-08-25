@@ -61,7 +61,7 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div onClick={(event) => handleNotEnoughPoints(move)} className='  w-5/6 hover:scale-105 select-none' >
-                                            <p className='rounded-lg p-2 font-mono text-l text-black shadow-xl'>{move.name}</p>
+                                            <p className='rounded-lg p-2 font-mono text-l text-gray shadow-xl'>{move.name}</p>
                                             <p></p>
                                         </div>
                                     )
@@ -81,7 +81,7 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div className='  w-3/6 hover:scale-105 select-none' >
-                                            <p className='rounded-lg p-2 font-mono text-l text-black shadow-xl'>{move.cost[0]}</p>
+                                            <p className='rounded-lg p-2 font-mono text-l text-gray shadow-xl'>{move.cost[0]}</p>
                                             <p></p>
                                         </div>
                                     )
