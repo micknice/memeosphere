@@ -73,9 +73,8 @@ const Battle = observer(() => {
                 <div className="outline"></div>
                 <div className="outline flex justify-center items-start"><Image className="" src={Memeosphere} alt={""}/></div>
                 <div className="outline"></div>
-                <div className=" outline px-10 h-full row-span-5 flex flex-col justify-end items-end " >
+                <div className=" outline px-10 h-full row-span-5 flex flex-col justify-end items-start " >
                 <HeroCard 
-                        onClick={a}
                         player={battleStore.battleEngine.playerBase}
                         // style={{ pointerEvents: 'auto' }}
                     />
@@ -84,14 +83,10 @@ const Battle = observer(() => {
                 <div className='outline outline-blue-400 '>
 
                 </div>
-                <div className=" outline px-10 h-full  row-span-5 flex flex-col justify-end items-start " >
+                <div className=" outline px-10 h-full  row-span-5 flex flex-col justify-end items-end " >
                     
                     <EnemyCard 
-                        
-                        img={battleStore.battleEngine.enemyBase.img}
-                        hp={battleStore.battleEngine.enemyBase.hp}
-                        ap={battleStore.battleEngine.enemyBase.ap}
-                        mp={battleStore.battleEngine.enemyBase.mp}
+                        enemy={battleStore.battleEngine.enemyBase}
                         // style={{ pointerEvents: 'auto', flexGrow: 1, minHeight: '500px' }}
                     />
                 </div>

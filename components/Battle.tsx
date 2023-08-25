@@ -11,17 +11,12 @@ import dynamic from 'next/dynamic'
 import battleStore from '../engine/BattleStore/BattleStore'
 import SpeechLeft from '../public/assets/bg/speechbubbleleft.png'
 
-
-
-
-
-
-
 const Battle = observer(() => {
-    const a = () => {
-        console.log('!!!ggggg')
-    }
+    const [text, setText] =useState('')
     
+    useEffect(() => {
+        console.log('!!!!!')
+    }, [battleStore]) 
 
     return (
         <div className="outline outline-red-500 w-full h-screen bg-gradient-to-t from-[#ecf0f3] to-gray-400 flex  rounded-lg">
@@ -51,7 +46,7 @@ const Battle = observer(() => {
                 </div>
                 <div className=" outline outline-yellow-500 row-span-1 p-10   flex flex-row justify-start items-start " >
                 
-                    <div className="col-span-1 row-span-1">
+                    <div className="col-span-1 row-span-1" >
                         <CardSlot img={battleStore.battleEngine.eCardSlot5.img}/>
                     </div>
                     <div className="col-span-1 row-span-1">
@@ -80,15 +75,18 @@ const Battle = observer(() => {
                     />
                     
                 </div>
-                <div className='outline outline-blue-400 '>
-
+                <div className='outline outline-blue-400 justify-center items-center flex'>
+                    
+                    
                 </div>
                 <div className=" outline px-10 h-full  row-span-5 flex flex-col justify-end items-end " >
-                    
+                    <div className="h-full justify-end flex items-end">
+
                     <EnemyCard 
                         enemy={battleStore.battleEngine.enemyBase}
                         // style={{ pointerEvents: 'auto', flexGrow: 1, minHeight: '500px' }}
-                    />
+                        />
+                    </div>
                 </div>
                 {/* <Image   src={SpeechLeft} alt={""}/> */}
                 <div className="outline justify-start"></div>
@@ -101,4 +99,5 @@ const Battle = observer(() => {
     )
 })
 
-export default  Battle
+
+export default   Battle

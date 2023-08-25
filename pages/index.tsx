@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 // import Battle from '../components/Battle'
 
 // Import Battle component using dynamic import
-const Battle = dynamic(() => import('../components/Battle'), { ssr: false })
+const Battle = dynamic(() => import('../components/Battle'), {ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 

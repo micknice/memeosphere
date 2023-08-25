@@ -44,22 +44,9 @@ class BattleEngine{
         this.playerMoveFirst = moveFirst
     }
 
-    executePlayerMove(moveName) {
-        console.log('move', moveName)
-
-        const pointType = this.playerBase.moves[moveName].cost[1]
-        const cost = this.playerBase.moves[moveName].cost[0]
-        console.log(pointType)
-        console.log(cost)
-        this.spendPoints(pointType, cost)
-        this.playerBase.moves[moveName].function(this.enemyBase)
-        
-        // console.log('move', battleStore.battleEngine.playerBase.moves[move.name])
-        // this.playerTurnTaken = true
-    }
-    spendPoints(pointType, cost) {
-        const finalValue = this.playerBase[pointType] - cost
-        this.playerBase[pointType] = finalValue
+    executePlayerAction() {
+        this.playerAction()
+        this.playerTurnTaken = true
     }
 
     executeEnemyAction() {

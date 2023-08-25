@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "useDefineForClassFields": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -28,7 +29,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/CardSlot.tsx"  ],
+, "components/CardSlot.tsx", "components/AnimationStage.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -8,13 +8,14 @@ import {makeAutoObservable} from 'mobx'
 
 
 class BattleStore {
+    battleEngine = new BattleEngine(player, enemy)
+    initializePlayer = this.battleEngine.playerBase.initializeNewPlayer()
+    initializeEnemy = this.battleEngine.enemyBase.initializeNewPlayer()
+    moveText = 'abc'
     constructor(player, enemy) {
         console.log(player)
-        makeAutoObservable(this)
         
-        this.battleEngine = new BattleEngine(player, enemy)
-        this.initializePlayer = this.battleEngine.playerBase.initializeNewPlayer()
-        this.initializeEnemy = this.battleEngine.enemyBase.initializeNewPlayer()
+        makeAutoObservable(this)
         console.log('player @ store post initialization', player)
 
     }
@@ -24,7 +25,8 @@ class BattleStore {
 const player = new Nerd()
 // player.initializeNewPlayer()
 
-const enemy = new Influencer()
+// const enemy = new Influencer()
+const enemy = new Nerd()
 // enemy.initializeNewPlayer()
 
 const battleStore = new BattleStore(player, enemy)

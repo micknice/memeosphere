@@ -1,43 +1,156 @@
-import Hero from './Hero'
 import NerdImg from '../public/assets/character/nerd_smoking.png'
+import { makeAutoObservable } from 'mobx'
 
-class Nerd extends Hero {
-    constructor() {
-        super()
-        this.img = NerdImg
-        this.moves = {
-                'Beta-Test': {
-                    name: 'Beta Test',
-                    target: 'enemy',
-                    effect: 'Deals a small amount of damage while returning a report on enemies hidden attributes. After using Beta Test the Early Access ability can be used.',
-                    cost: [10, 'ap'],
-                    level:1
-
-                },
-                'D-20': {
-                    name: 'D-20',
-                    target: 'enemy',
-                    effect: 'Roll a single D-20. Deals the same damage as on the Die',
-                    const: [10, 'ap'],
-                    level: 1
-                },
-                'EarlyAccess': {
-                    name: 'Early Access',
-                    target: 'enemy',
-                    effect: 'Deals mid-damage',
-                    cost: [15, 'ap'],
-                    level: 1
-                },
-                'BugFix': {
-                    name: 'Bug Fix',
-                    target: 'self',
-                    effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
-                    cost: [20, 'mp'],
-                    level: 1
-                }
-
-            
+class Nerd  {
+    hp = 50
+    mp = 50
+    ap = 50
+    muscle = 10
+    hustle = 10
+    intro = 10
+    proj = 10
+    luck = 10
+    level = 1
+    img = NerdImg
+    movesArr = []
+        
+    startingMoves = {
+        'Beta-Test': {
+            name: 'Beta-Test',
+            target: 'enemy',
+            effect: 'Deals a small amount of damage while returning a report on enemies hidden attributes. After using Beta Test the Early Access ability can be used.',
+            cost: [10, 'ap'],
+            level:1,
+            function: (enemy) => {
+                enemy.hp = enemy.hp - 10
+                // this.moves = this.evoMoves
+                console.log('moves', this.moves)
+            }
+        },
+        'D-20': {
+            name: 'D-20',
+            target: 'enemy',
+            effect: 'Roll a single D-20. Deals the same damage as on the Die',
+            cost: [10, 'ap'],
+            level: 1,
+            function: (enemy) => {
+                const roll = Math.floor(Math.random() * (20 - 1) + 1);
+                enemy.hp = enemy.hp - roll
+            }
+        },
+        'BugFix': {
+            name: 'BugFix',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'BookClub': {
+            name: 'BookClub',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'SwagHammer': {
+            name: 'SwagHammer',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'Fedora': {
+            name: 'Fedora',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
         }
+        
+    }
+    moves = this.startingMoves
+    evoMoves = {
+        'EarlyAccess': {
+            name: 'EarlyAccess',
+            target: 'enemy',
+            effect: 'Deals mid-damage',
+            cost: [15, 'ap'],
+            level: 1,
+            function: (enemy) => {
+                enemy.hp = enemy.hp - 20
+            }
+        },
+        'D-20': {
+            name: 'D-20',
+            target: 'enemy',
+            effect: 'Roll a single D-20. Deals the same damage as on the Die',
+            cost: [10, 'ap'],
+            level: 1,
+            function: (enemy) => {
+                const roll = Math.floor(Math.random() * (20 - 1) + 1);
+                enemy.hp = enemy.hp - roll
+            }
+        },
+        'BugFix': {
+            name: 'BugFix',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'BookClub': {
+            name: 'BookClub',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'SwagHammer': {
+            name: 'SwagHammer',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        },
+        'Fedora': {
+            name: 'Fedora',
+            target: 'self',
+            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            cost: [20, 'mp'],
+            level: 1,
+            function: () => {}
+        }
+        
+    }
+    evoMoves = {
+        'Beta-Test': {
+            'EarlyAccess': {
+                name: 'EarlyAccess',
+                target: 'enemy',
+                effect: 'Deals mid-damage',
+                cost: [15, 'ap'],
+                level: 1,
+                function: (enemy) => {
+                    enemy.hp = enemy.hp - 20
+                }
+            }
+        }
+        
+        
+        
+    }
+            
+    constructor() {
+        makeAutoObservable(this)
+        this.initializeMovesArr = this.getMovesArr()
+        
     }
 
     rollHp() {
@@ -92,6 +205,13 @@ class Nerd extends Hero {
         this.rollProj()
         this.rollLuck()
     }
+    getMovesArr() {
+        const moves = Object.values(this.moves)
+        this.movesArr = moves
+        return moves
+    }
+
+
 
 
 }
