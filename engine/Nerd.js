@@ -43,14 +43,14 @@ class Nerd  {
         },
         'BugFix': {
             name: 'BugFix',
-            target: 'self',
+            target: 'pdeck',
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
             level: 1,
             function: () => {}
         },
-        'BookClub': {
-            name: 'BookClub',
+        'Giga-Brain': {
+            name: 'Giga-Brain',
             target: 'self',
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
@@ -106,8 +106,8 @@ class Nerd  {
             level: 1,
             function: () => {}
         },
-        'BookClub': {
-            name: 'BookClub',
+        'Giga-Brain': {
+            name: 'Giga-Brain',
             target: 'self',
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],

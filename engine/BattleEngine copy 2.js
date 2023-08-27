@@ -6,26 +6,26 @@ import GigaChad from '../engine/memes/self/GigaChad'
 const empty = new Empty()
 
 class BattleEngine{
-
+    
     constructor(player, enemy) {
-        console.log('player @ engine', player)
         makeAutoObservable(this)
+        console.log('player @ engine', player)
         this.playerBase = player
         this.enemyBase = enemy
         
         this.playerBattle = this.playerBase
         this.enemyBattle =  this.enemyBase
-        this.pCardSlot1 = empty
-        this.pCardSlot2 = empty
-        this.pCardSlot3 = empty
-        this.pCardSlot4 = empty
-        this.pCardSlot5 = empty
-        this.eCardSlot1 = empty
-        this.eCardSlot2 = empty
-        this.eCardSlot3 = empty
-        this.eCardSlot4 = empty
-        this.eCardSlot5 = empty
-
+        this.pCardSlot1 = new Empty()
+        this.pCardSlot2 = new Empty()
+        this.pCardSlot3 = new Empty()
+        this.pCardSlot4 = new Empty()
+        this.pCardSlot5 = new Empty()
+        this.eCardSlot1 = new Empty()
+        this.eCardSlot2 = new Empty()
+        this.eCardSlot3 = new Empty()
+        this.eCardSlot4 = new Empty()
+        this.eCardSlot5 = new Empty()
+        
         this.round = 1
         this.playerMoveFirst = true
         this.playerAction = null
@@ -34,7 +34,7 @@ class BattleEngine{
         this.enemyTurnTaken = false
         this.moveText = ''
     }
-
+    
     checkMoveOrder() {
         let moveFirst = true
         if (this.playerBattle.hustle < this.enemyBattle.hustle) {
@@ -56,26 +56,28 @@ class BattleEngine{
             this.spendPoints(pointType, cost)
             this.playerBase.moves[moveName].function(this.enemyBase)
             this.addCardToPSlot(GigaChad)
-            console.log('pcardslot1', this.pCardSlot1)
+            
             // this.playerTurnTaken = true
         }
     }
     addCardToPSlot(memeCard) {
-        console.log('addcard invoked')
-        let targetSlot = this.pCardSlot1
-        this.pCardSlot1.title === 'empty' ? targetSlot = this.pCardSlot1 :
-        this.pCardSlot2.title === 'empty' ? targetSlot = this.pCardSlot2 :
-        this.pCardSlot3.title === 'empty' ? targetSlot = this.pCardSlot3 :
-        this.pCardSlot4.title === 'empty' ? targetSlot = this.pCardSlot4 :
-        this.pCardSlot5.title === 'empty' ? targetSlot = this.pCardSlot5 :
-        targetSlot = null;
-        if (targetSlot !== null) {
-            console.log('tslot !== conditional passed')
-            console.log('mcard', memeCard)
-            targetSlot = memeCard
-        }
-        console.log('tslot',targetSlot)
-        
+        // console.log('addcard invoked')
+        // let targetSlot = 'pCardSlot1'
+        // this.pCardSlot1.title === 'empty' ? targetSlot = 'pCardSlot1' :
+        // this.pCardSlot2.title === 'empty' ? targetSlot = 'pCardSlot2' :
+        // this.pCardSlot3.title === 'empty' ? targetSlot = 'pCardSlot3' :
+        // this.pCardSlot4.title === 'empty' ? targetSlot = 'pCardSlot4' :
+        // this.pCardSlot5.title === 'empty' ? targetSlot = 'pCardSlot5' :
+        // targetSlot = null;
+        // if (targetSlot !== null) {
+        //     console.log('tslot !== conditional passed')
+        //     console.log('mcard', memeCard)
+        //     this[targetSlot].target = memeCard.target
+        //     console.log('pslot', this.pCardSlot1.target)
+        // }
+        // console.log('tslot',targetSlot)
+        // console.log('pcardslot1', this.pCardSlot1)
+        this.pCardSlot1.img = memeCard.img
     }
     spendPoints(pointType, cost) {
         const finalValue = this.playerBase[pointType] - cost

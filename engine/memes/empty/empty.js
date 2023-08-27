@@ -1,12 +1,14 @@
-import HustleCulture from '../../../public/assets/memecards/hustleculture.png'
-
+import CardBack from '../../../public/assets/memecards/cardbacks/cardback.jpg'
+import {makeAutoObservable} from 'mobx'
 class Empty {
+        target = null
+        stat = null
+        mod = null
+        title = 'empty'
+        img = CardBack
     constructor() {
-        this.target = null
-        this.stat = null
-        this.mod = null
-        this.title = 'empty'
-        this.img = null
+        makeAutoObservable(this)
+        
     }
 }
 

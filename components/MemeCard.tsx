@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { makeAutoObservable } from 'mobx'
 
 const MemeCard = (props: any) => {
     return (

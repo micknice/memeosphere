@@ -3,24 +3,66 @@ import Anonymous from '../public/assets/character/anonymous.png'
 import Image from 'next/image'
 import battleStore from '@/engine/BattleStore/BattleStore'
 import {observer} from 'mobx-react'
-import arrow from '../public/assets/ui/pixelArrowGreen.png'
-import cross from '../public/assets/ui/pixelCrossRed.png'
+import arrowGreen from '../public/assets/ui/pixelArrowGreen.png'
+import arrowGray from '../public/assets/ui/pixelArrowGrey.png'
+import crossRed from '../public/assets/ui/pixelCrossRed.png'
+import crossGray from '../public/assets/ui/pixelCrossGrey.png'
+import {useState, useEffect} from 'react'
+import {useSound} from 'use-sound'
+import menuPlink from '/assets/sfx/menuPlink.mp3'
 
 
 
 
 const HeroCard = observer((props: any) => {
+    
+    const altTxt1 = 'rounded-lg p-2 font-mono text-l text-gray-300 '
+    const altTxt2 = 'rounded-lg p-2 font-mono text-l text-gray-600 '
+    const altTxt3 = 'rounded-lg p-2 font-mono text-l text-gray-200 '
+    const altTxt4 = 'rounded-lg p-2 font-mono text-l text-gray-400 '
+
+
+
+    const [arrowImageSrc, setArrowImageSrc] = useState(arrowGreen);
+    const [crossImageSrc, setCrossImageSrc] = useState(crossRed);
+    const [altTxtTW, setAltTxtTW] = useState(altTxt1)
+    const [altTxtTW2, setAltTxtTW2] = useState(altTxt3)
+    const [apLow, setApLow] = useState(false)
+
+    const [playMenuPlink] = useSound('assets/sfx/menuPlink.mp3')
+    const [playMenuSelect] = useSound('assets/sfx/menuSelect.mp3')
+    const [playMenuNegative] = useSound('assets/sfx/menuNegative.mp3')
+    const [playMenuPulse] = useSound('assets/sfx/menuPulse.mp3')
+
+   
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            // setArrowImageSrc(prevSrc => prevSrc === arrowGreen ? arrowGray : arrowGreen);
+            setAltTxtTW(prevSrc => prevSrc === altTxt1 ? altTxt2 : altTxt1);
+            setAltTxtTW2(prevSrc => prevSrc === altTxt3 ? altTxt4 : altTxt3);
+            setCrossImageSrc(prevSrc => prevSrc === crossRed ? crossGray : crossRed);
+            // playMenuPulse()
+            // if (apLow){playMenuPulse()}
+        }, 1500);
+        return () => clearInterval(intervalId); 
+    }, [apLow]);
+
+    
+    
     const player = props.player
 
-    const flashArrow = () => {
-        
+    const handleButtonHover = () => {
+        playMenuPlink()
     }
+
+    
     const handleMoveSelect = (move: any) => {
         battleStore.battleEngine.executePlayerMove(move.name)
-        
+        playMenuSelect()
     }
 
     const handleNotEnoughPoints = (move: any) => {
+        playMenuNegative()
     }
 
     let playerImg = Anonymous
@@ -32,7 +74,7 @@ const HeroCard = observer((props: any) => {
             <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
                 {/* top div */}
                 <div className=' p-4 h-3/5'>
-                    <div className='outline outline-4 rounded-lg h-full w-full p-4 flex-row bg-gradient-to-r from-blue-100 to-blue-900 '>
+                    <div className='outline outline-4 rounded-lg h-full w-full p-4 flex-row bg-gradient-to-r from-blue-200 to-blue-900 '>
                         <p>moves go here</p>
                     </div>
 
@@ -62,20 +104,20 @@ const HeroCard = observer((props: any) => {
             <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
                 {/* top div */}
                 <div className=' p-4 h-3/5 '>
-                    <div className='outline outline-4 rounded-lg h-full w-full p-2  grid grid-cols-7  bg-gradient-to-r from-blue-100 to-blue-900 '>
+                    <div className='outline outline-4 rounded-lg h-full w-full p-2  grid grid-cols-7  bg-gradient-to-r from-blue-200 to-blue-900 '>
                         {/* left col */}
                         <div className='flex flex-col col-span-3'>
                             {player.movesArr.map((move : any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
-                                        <div onClick={(event) => handleNotEnoughPoints(move)} className='  w-5/6  select-none' >
-                                            <p className='bg-red-600 bg-opacity-10 rounded-lg p-2 font-mono text-l text-gray-200 shadow-xl'>{move.name}</p>
+                                        <div  onClick={(event) => handleNotEnoughPoints(move)} className='  w-5/6  select-none' >
+                                            <p className={altTxtTW2}>{move.name}</p>
                                             <p></p>
                                         </div>
                                     )
                                 } else {
                                     return (
-                                        <div onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
+                                        <div onMouseEnter={() => {handleButtonHover()}}  onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
                                             <p className='rounded-lg p-2 font-mono text-l text-white shadow-xl hover:scale-110'>{move.name}</p>
                                             <p></p>
                                         </div>
@@ -90,14 +132,14 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
-                                            <Image src={cross} alt={''}/>
+                                            <Image src={crossImageSrc} alt={''}/>
                                             <p></p>
                                         </div>
                                     )
                                 } else {
                                     return (
                                         <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
-                                            <Image src={arrow} alt={''}/>
+                                            <Image src={arrowImageSrc} alt={''}/>
                                             <p></p>
                                         </div>
                                     )
@@ -112,7 +154,7 @@ const HeroCard = observer((props: any) => {
                                 if(move.cost[0] > battleStore.battleEngine.playerBase[move.cost[1]]) {
                                     return (
                                         <div className='  w-full  select-none col-span-3' >
-                                            <p className='rounded-lg p-2 font-mono text-l text-gray-300 '>{move.cost[1].toUpperCase()} LOW</p>
+                                            <p className={altTxtTW}>{move.cost[1].toUpperCase()} LOW</p>
                                             <p></p>
                                         </div>
                                     )

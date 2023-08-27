@@ -3,31 +3,42 @@ import Link from 'next/link';
 import CardBack from '../public/assets/memecards/cardbacks/cardback.jpg'
 import ReactCardFlip from 'react-card-flip';
 import { useEffect, useState } from 'react';
+import GigaChad from '../engine/memes/self/GigaChad'
+import { observer } from 'mobx-react';
+import battleStore from '../engine/BattleStore/BattleStore'
+import BattleEngine from '@/engine/BattleEngine';
+import {useSound} from 'use-sound'
 
 
 
 
-const CardSlot = (props: any) => {
+const CardSlot = observer((props : any) => {
 
-    const [flipped, setFlipped] = useState(false)
-    const [cardImg, setCardImg] = useState(CardBack)
+    const [flipped, setFlipped] = useState(true)
+    // const [cardImg, setCardImg] = useState(CardBack)
 
-    useEffect(() =>{
-        if (props.img) {
-            setCardImg(props.img)
-            setFlipped(true)
-        }
-    })
+    const [playMenuShwipp] = useSound('assets/sfx/menuShwipp.mp3')
+    const [playMenuPop] = useSound('assets/sfx/menuPop.mp3')
+
     
+    const targetSlot = props.targetSlot
+    const cardImg  = battleStore.battleEngine[targetSlot as keyof BattleEngine].img
     
-    if (props.img) {
-        setCardImg(props.img)
-        
-    }
+
+    
     const handleit = () => {
         console.log('!!!!!')
         setFlipped(!flipped)
+        playMenuShwipp()
+        setTimeout(() => {
+            playMenuPop();
+        }, 320);
     }
+    useEffect(() => {
+        handleit()
+    },[cardImg])
+
+    
 
     
 
@@ -51,6 +62,6 @@ const CardSlot = (props: any) => {
             </Link>
         </div>
     )
-}
+})
 
 export default CardSlot

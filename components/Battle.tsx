@@ -15,71 +15,71 @@ const Battle = observer(() => {
     const [text, setText] =useState('')
     
     useEffect(() => {
-        console.log('!!!!!')
+        console.log('!!!!!', battleStore.battleEngine.pCardSlot1.img)
     }, [battleStore]) 
 
     return (
-        <div className="outline outline-red-500 w-full h-screen bg-gradient-to-t from-[#ecf0f3] to-gray-400 flex  rounded-lg">
+        <div className=" outline-red-500 w-full h-screen bg-gradient-to-t from-[#ecf0f3] to-gray-400 flex  rounded-lg">
             <div className="outline outline-green-400w-full h-screen bg-gradient-to-t from-[#ecf0f3] to-gray-400  grid grid-cols-3 grid-rows-8">
-                <div className=" outline outline-yellow-500  row-span-1  p-10   flex  justify-start items-start  " >
+                <div className="  outline-yellow-500  row-span-1  p-10   flex  justify-start items-start  " >
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.pCardSlot1.img}/>
+                        <CardSlot targetSlot={'pCardSlot1'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.pCardSlot2.img}/>
+                        <CardSlot targetSlot={'pCardSlot2'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.pCardSlot3.img}/>
+                        <CardSlot targetSlot={'pCardSlot3'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.pCardSlot4.img}/>
+                        <CardSlot targetSlot={'pCardSlot4'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.pCardSlot5.img}/>
+                        <CardSlot targetSlot={'pCardSlot5'}/>
                     </div>
                     
                     
                 </div>
                 <div className=" flex justify-center items-center">
 
-                    
+                    {/* <Image src={battleStore.battleEngine.pCardSlot1.img} alt={""}/> */}
                 </div>
-                <div className=" outline outline-yellow-500 row-span-1 p-10   flex flex-row justify-start items-start " >
+                <div className="  outline-yellow-500 row-span-1 p-10   flex flex-row justify-start items-start " >
                 
                     <div className="col-span-1 row-span-1" >
-                        <CardSlot img={battleStore.battleEngine.eCardSlot5.img}/>
+                        <CardSlot targetSlot={'eCardSlot5'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.eCardSlot4.img}/>
+                        <CardSlot targetSlot={'eCardSlot4'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.eCardSlot3.img}/>
+                        <CardSlot targetSlot={'eCardSlot3'}/>
                     </div>
                     <div className="col-span-1 row-span-2">
-                        <CardSlot img={battleStore.battleEngine.eCardSlot2.img}/>
+                        <CardSlot targetSlot={'eCardSlot2'}/>
                     </div>
                     <div className="col-span-1 row-span-1">
-                        <CardSlot img={battleStore.battleEngine.eCardSlot1.img}/>
+                        <CardSlot targetSlot={'eCardSlot1'}/>
                     </div>
                 </div>
                 {/* <div className="outline"></div>
                 <div className="outline"></div>
                 <div className="outline"></div> */}
-                <div className="outline"></div>
-                <div className="outline flex justify-center items-start"><Image className="" src={Memeosphere} alt={""}/></div>
-                <div className="outline"></div>
-                <div className=" outline px-10 h-full row-span-5 flex flex-col justify-end items-start " >
+                <div className=""></div>
+                <div className=" flex justify-center items-start"><Image className="" src={Memeosphere} alt={""}/></div>
+                <div className=""></div>
+                <div className="  px-10 h-full row-span-5 flex flex-col justify-end items-start " >
                 <HeroCard 
                         player={battleStore.battleEngine.playerBase}
                         // style={{ pointerEvents: 'auto' }}
                     />
                     
                 </div>
-                <div className='outline outline-blue-400 justify-center items-center flex'>
+                <div className=' outline-blue-400 justify-center items-center flex'>
                     
                     
                 </div>
-                <div className=" outline px-10 h-full  row-span-5 flex flex-col justify-end items-end " >
+                <div className="  px-10 h-full  row-span-5 flex flex-col justify-end items-end " >
                     <div className="h-full justify-end flex items-end">
 
                     <EnemyCard 
@@ -89,10 +89,10 @@ const Battle = observer(() => {
                     </div>
                 </div>
                 {/* <Image   src={SpeechLeft} alt={""}/> */}
-                <div className="outline justify-start"></div>
-                <div className="outline"></div>
-                <div className="outline"></div>
-                <div className="outline"></div>
+                <div className=" justify-start"></div>
+                <div className=""></div>
+                <div className=""></div>
+                <div className=""></div>
                
             </div>
         </div>
