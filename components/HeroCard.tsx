@@ -51,12 +51,16 @@ const HeroCard = observer((props: any) => {
     
     const player = props.player
 
-    const handleButtonHover = () => {
+    const handleButtonHover = (move: any) => {
         playMenuPlink()
+        battleStore.hoverVal = move
+        console.log('move', move)
+        console.log('hoverval', battleStore.hoverVal.effect)
     }
-
+    
     
     const handleMoveSelect = (move: any) => {
+        battleStore.hoverVal = move
         battleStore.battleEngine.executePlayerMove(move.name)
         playMenuSelect()
     }
@@ -117,7 +121,7 @@ const HeroCard = observer((props: any) => {
                                     )
                                 } else {
                                     return (
-                                        <div onMouseEnter={() => {handleButtonHover()}}  onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
+                                        <div onMouseEnter={(event) => {handleButtonHover(move)}}  onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
                                             <p className='rounded-lg p-2 font-mono text-l text-white shadow-xl hover:scale-110'>{move.name}</p>
                                             <p></p>
                                         </div>

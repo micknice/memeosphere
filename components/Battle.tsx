@@ -10,9 +10,11 @@ import {observer} from 'mobx-react'
 import dynamic from 'next/dynamic'
 import battleStore from '../engine/BattleStore/BattleStore'
 import SpeechLeft from '../public/assets/bg/speechbubbleleft.png'
+import BattleStage from '../components/BattleStage'
 
 const Battle = observer(() => {
     const [text, setText] =useState('')
+    
     
     useEffect(() => {
         console.log('!!!!!', battleStore.battleEngine.pCardSlot1.img)
@@ -75,8 +77,8 @@ const Battle = observer(() => {
                     />
                     
                 </div>
-                <div className=' outline-blue-400 justify-center items-center flex'>
-                    
+                <div className=' row-span-6 justify-center items-center flex'>
+                    <BattleStage player={battleStore.battleEngine.playerBase}/>
                     
                 </div>
                 <div className="  px-10 h-full  row-span-5 flex flex-col justify-end items-end " >
@@ -89,10 +91,12 @@ const Battle = observer(() => {
                     </div>
                 </div>
                 {/* <Image   src={SpeechLeft} alt={""}/> */}
-                <div className=" justify-start"></div>
+                <div className="">
+                    <div className=""></div>
+                </div>
                 <div className=""></div>
                 <div className=""></div>
-                <div className=""></div>
+                <div className=" "></div>
                
             </div>
         </div>
