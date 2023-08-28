@@ -11,7 +11,7 @@ const MenuButtonOk = (props : any) => {
         console.log('tttttt')
         battleStore.battleEngine.playerActionConfirmed = true
         
-        // battleStore.battleEngine.executePlayerMove()
+        battleStore.battleEngine.executeRound()
         playMenuSelect()
     }
     return (

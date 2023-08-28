@@ -23,20 +23,19 @@ const HeroCard = observer((props: any) => {
     const altTxt3 = 'rounded-lg p-2 font-mono text-l text-gray-200 '
     const altTxt4 = 'rounded-lg p-2 font-mono text-l text-gray-400 '
 
-
-
     const [arrowImageSrc, setArrowImageSrc] = useState(arrowGreen);
     const [crossImageSrc, setCrossImageSrc] = useState(crossRed);
     const [altTxtTW, setAltTxtTW] = useState(altTxt1)
     const [altTxtTW2, setAltTxtTW2] = useState(altTxt3)
     const [apLow, setApLow] = useState(false)
+     
     
 
     const [playMenuPlink] = useSound('assets/sfx/menuPlink.mp3')
     const [playMenuSelect] = useSound('assets/sfx/menuSelect.mp3')
     const [playMenuNegative] = useSound('assets/sfx/menuNegative.mp3')
     const [playMenuPulse] = useSound('assets/sfx/menuPulse.mp3')
-
+    const [playMoveSfx] = useSound(battleStore.battleEngine.playActionSfx)
    
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -49,26 +48,25 @@ const HeroCard = observer((props: any) => {
         }, 1500);
         return () => clearInterval(intervalId); 
     }, [apLow]);
+    
+    useEffect(()=> {
+        console.log('llllll')
+        console.log('dddd', battleStore.battleEngine.playActionSfx)
 
-    
-    
+        const awaitDelays = async () => {
+            const delay = (ms : number) => new Promise(resolve => setTimeout(resolve, ms));
+            await delay(500)
+            console.log('mmmm', battleStore.battleEngine.playActionSfx)
+            playMoveSfx()
+        }
+        if(battleStore.battleEngine.playerActionInProgress) {
+            console.log('nnnnn', battleStore.battleEngine.playActionSfx)
+            awaitDelays()
+                
+        }
+
+    }, [battleStore.battleEngine.playActionSfx])
     const player = props.player
-
-    const handleButtonHover = () => {
-        playMenuPlink()
-    }
-
-    
-    const handleOK = () => {
-        console.log('tttttt')
-        
-        battleStore.battleEngine.executePlayerMove()
-        playMenuSelect()
-    }
-
-    const handleNotEnoughPoints = (move: any) => {
-        playMenuNegative()
-    }
 
     let playerImg = Anonymous
     if (player.img) {
@@ -83,27 +81,33 @@ const HeroCard = observer((props: any) => {
                         {/* left col */}
                         <div className='  grid grid-rows-6 col-span-7 overflow-hidden'>
                             <div className='  row span-2'>
-                                {battleStore.hoverVal.name  &&
+                                {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.name}:</p>
+                                }
+                                {battleStore.battleEngine.playerActionInProgress &&
+                                    <p className='p-2 font-mono text-xl text-white'>{battleStore.playerName} used {battleStore.battleEngine.playerAction}...</p>
                                 }
                             </div>
                             <div className='col-span-7'>
-                                <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
+                                {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
+                                    <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
+                                }
                             </div>
                             <div></div>
                             <div className=' grid grid-cols-6 justify-center items-center col-span-7'>
                                 <div></div>
                                 <div></div>
-                                {battleStore.hoverLock  &&
+                                {battleStore.hoverLock  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <div>
                                     <MenuButtonOk  className='w-full' text='OK'/>
                                     </div>
                                 }
-                                {battleStore.hoverLock  &&
+                                {battleStore.hoverLock  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <div>
                                     <MenuButtonCancel className='w-full' text='CANCEL'/>
                                     </div>
                                 }
+                                
 
                             </div>
                             

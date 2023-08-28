@@ -4,10 +4,30 @@ import battleStore from '@/engine/BattleStore/BattleStore'
 import Anonymous from '../public/assets/character/anonymous.png'
 import SpeechLeft from '../public/assets/bg/speechbubbleleft.png'
 import {observer} from 'mobx-react'
+import { Shake } from 'reshake'
+import {useState, useEffect} from 'react'
+import {useSound} from 'use-sound'
 
 
 const EnemyCard = observer((props: any) => {
     const enemy = props.enemy
+
+    const [shake, setShake] = useState(false)
+
+    const [playHitSfx] = useSound('assets/sfx/liteExploSfx.mp3')
+
+    useEffect(() => {
+        if(battleStore.battleEngine.enemyEffectsInProgress) {
+            playHitSfx()
+            setShake(true)
+            setTimeout(() => {
+                setShake(false)
+            }, 1000);
+        } else {
+            setShake(false)
+        }
+
+    })
 
     const handleMoveSelect = (move: any) => {
         const pointType = move.cost[1]
@@ -23,7 +43,7 @@ const EnemyCard = observer((props: any) => {
     }
     if (props.active) {
         return (
-            
+            <Shake h={10} v={0} r={3}>
             <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
                 {/* top div */}
                 <div className=' p-4 h-3/5'>
@@ -49,11 +69,15 @@ const EnemyCard = observer((props: any) => {
             
                 </div>
             </div>
+            </Shake>
 
         )
+
     } else {
         return (
-            <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
+            <Shake dur={500} active={shake} fixed={true }className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl' h={10} v={0} r={3}>
+
+            {/* <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'> */}
                 {/* top div */}
                 
                 <div className=' p-4 h-3/5 '>
@@ -98,7 +122,8 @@ const EnemyCard = observer((props: any) => {
                     </div>
             
                 </div>
-            </div>
+            {/* </div> */}
+            </Shake>
 
         )
     }

@@ -25,16 +25,18 @@ class BattleEngine{
         this.eCardSlot3 = new Empty()
         this.eCardSlot4 = new Empty()
         this.eCardSlot5 = new Empty()
-        
         this.round = 1
         this.playerMoveFirst = true
         this.playerAction = null
         this.playerActionConfirmed = false
+        this.playerActionInProgress = false
+        this.playActionSfx = 'assets/sfx/menuPulse.mp3'
         this.playerTurnTaken = false
-        
+        this.enemyEffectsInProgress = false
         this.enemyAction = null
         this.enemyTurnTaken = false
         this.moveText = ''
+        
     }
     
     checkMoveOrder() {
@@ -57,17 +59,45 @@ class BattleEngine{
             console.log(pointType)
             console.log(cost)
             this.spendPoints(pointType, cost)
+            // this.enemyEffectsInProgress = true
             this.playerBase.moves[moveName].function(this.enemyBase)
-            this.addCardToPSlot(GigaChad)
+            // this.addCardToPSlot(GigaChad)
             
             // this.playerTurnTaken = true
         }
     }
+    playerRoundReset() {
+        this.playerAction = null
+        this.playerActionConfirmed = false
+        this.playerActionInProgress = false
+        this.playActionSfx = 'assets/sfx/menuPulse.mp3'
+    }
 
-    executeRound() {
-        this.checkMoveOrder()
+    async executeRound() {
+        // this.checkMoveOrder()
         if(this.playerMoveFirst){
+            const moveName = this.playerAction
+            this.playActionSfx = this.playerBase.moves[moveName].sound
+            this.playerActionInProgress = true
+            console.log('bbbb', this.playActionSfx)
 
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            await delay(500)
+            this.playerBase.img = this.playerBase.rageImg
+            
+            await delay(1900)
+            this.playerBase.img = this.playerBase.baseImg
+            this.enemyEffectsInProgress = true
+            await delay(100)
+            this.executePlayerMove()
+            await delay(200)
+            this.enemyEffectsInProgress = false
+            this.playerRoundReset()
+
+                
+                
+            
+            console.log('!T!', this.playerAction)
         }
 
     }
