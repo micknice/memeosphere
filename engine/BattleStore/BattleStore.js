@@ -12,7 +12,9 @@ class BattleStore {
     initializePlayer = this.battleEngine.playerBase.initializeNewPlayer()
     initializeEnemy = this.battleEngine.enemyBase.initializeNewPlayer()
     moveText = 'abc'
-    hoverVal = {effect: 'a', name: 'b'}
+    hoverValDefault = {effect: null, name: null}
+    hoverVal = {effect: null, name: null}
+    hoverLock = false
     constructor(player, enemy) {
         console.log(player)
         

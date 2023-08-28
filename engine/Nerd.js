@@ -1,4 +1,5 @@
 import NerdImg from '../public/assets/character/nerd_smoking.png'
+import NerdRageImg from '../public/assets/fxsprites/nerdRageHQ.gif'
 import { makeAutoObservable } from 'mobx'
 
 class Nerd  {
@@ -12,6 +13,8 @@ class Nerd  {
     luck = 10
     level = 1
     img = NerdImg
+    baseImg = NerdImg
+    rageImg = NerdRageImg
     movesArr = []
         
     startingMoves = {
@@ -21,6 +24,7 @@ class Nerd  {
             effect: 'Deals a small amount of damage while returning a report on enemies hidden attributes. After using Beta Test the Early Access ability can be used.',
             cost: [10, 'ap'],
             level:1,
+            sound: '../assets/sfx/electricSfx.mp3',
             function: (enemy) => {
                 console.log('pre reassignment', this.moves)
                 enemy.hp = enemy.hp - 10
@@ -36,6 +40,7 @@ class Nerd  {
             effect: 'Roll a single D-20. Deals the same damage as on the Die',
             cost: [10, 'ap'],
             level: 1,
+            sound: '../assets/sfx/flurrySfx.mp3',
             function: (enemy) => {
                 const roll = Math.floor(Math.random() * (20 - 1) + 1);
                 enemy.hp = enemy.hp - roll
@@ -47,6 +52,7 @@ class Nerd  {
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
             level: 1,
+            sound: '../assets/sfx/electronics1Sfx.mp3',
             function: () => {}
         },
         'Giga-Brain': {
@@ -55,6 +61,7 @@ class Nerd  {
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
             level: 1,
+            sound: '../assets/sfx/powerUpLongSfx.mp3',
             function: () => {}
         },
         'SwagHammer': {
@@ -63,6 +70,7 @@ class Nerd  {
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
             level: 1,
+            sound: '../assets/sfx/gigHitSfx.mp3',
             function: () => {}
         },
         'Fedora': {
@@ -71,6 +79,7 @@ class Nerd  {
             effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
             cost: [20, 'mp'],
             level: 1,
+            sound: '../assets/sfx/littlePowerUpSfx.mp3',
             function: () => {}
         }
         

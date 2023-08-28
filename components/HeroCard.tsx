@@ -52,17 +52,28 @@ const HeroCard = observer((props: any) => {
     const player = props.player
 
     const handleButtonHover = (move: any) => {
-        playMenuPlink()
-        battleStore.hoverVal = move
-        console.log('move', move)
-        console.log('hoverval', battleStore.hoverVal.effect)
+        if (!battleStore.hoverLock){
+            playMenuPlink()
+            battleStore.hoverVal = move
+
+        }
+        
+    }
+    const handleButtonHoverOff = () => {
+        if(!battleStore.hoverLock){
+            battleStore.hoverVal = battleStore.hoverValDefault
+        }
     }
     
     
     const handleMoveSelect = (move: any) => {
-        battleStore.hoverVal = move
-        battleStore.battleEngine.executePlayerMove(move.name)
-        playMenuSelect()
+        if (!battleStore.hoverLock) {
+            battleStore.hoverVal = move
+            battleStore.hoverLock = true
+            battleStore.battleEngine.playerAction = move.name
+            // battleStore.battleEngine.executePlayerMove(move.name)
+            playMenuSelect()
+        }
     }
 
     const handleNotEnoughPoints = (move: any) => {
@@ -121,7 +132,11 @@ const HeroCard = observer((props: any) => {
                                     )
                                 } else {
                                     return (
-                                        <div onMouseEnter={(event) => {handleButtonHover(move)}}  onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
+                                        <div 
+                                            onMouseEnter={(event) => {handleButtonHover(move)}}  
+                                            onMouseLeave={(event) => {handleButtonHoverOff()}} 
+                                            onClick={(event) => handleMoveSelect(move)} 
+                                            className='  w-5/6 hover:scale-105 select-none' >
                                             <p className='rounded-lg p-2 font-mono text-l text-white shadow-xl hover:scale-110'>{move.name}</p>
                                             <p></p>
                                         </div>

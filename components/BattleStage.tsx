@@ -10,6 +10,8 @@ import crossGray from '../public/assets/ui/pixelCrossGrey.png'
 import {useState, useEffect} from 'react'
 import {useSound} from 'use-sound'
 import menuPlink from '/assets/sfx/menuPlink.mp3'
+import MenuButtonOk from './MenuButtonOk'
+import MenuButtonCancel from './MenuButtonCancel'
 
 
 
@@ -57,8 +59,10 @@ const HeroCard = observer((props: any) => {
     }
 
     
-    const handleMoveSelect = (move: any) => {
-        battleStore.battleEngine.executePlayerMove(move.name)
+    const handleOK = () => {
+        console.log('tttttt')
+        
+        battleStore.battleEngine.executePlayerMove()
         playMenuSelect()
     }
 
@@ -75,17 +79,37 @@ const HeroCard = observer((props: any) => {
             <div className='h-6/6 w-full outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
                 {/* top div */}
                 <div className=' p-4 h-5/5 '>
-                    <div className='outline outline-4 rounded-lg h-[32rem] w-full p-2  grid grid-cols-7  bg-gradient-to-r from-blue-200 to-blue-900 '>
+                    <div className='outline outline-4 rounded-lg h-[32rem]  w-full p-2  grid grid-cols-7  bg-gradient-to-r from-blue-200 to-blue-900 '>
                         {/* left col */}
-                        <div className='grid grid-rows-5 col-span-7'>
-                            <div className='flex col-span-7'>
-                                <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.name}:</p>
+                        <div className='  grid grid-rows-6 col-span-7 overflow-hidden'>
+                            <div className='  row span-2'>
+                                {battleStore.hoverVal.name  &&
+                                    <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.name}:</p>
+                                }
                             </div>
-                            <div className='flex col-span-7'>
+                            <div className='col-span-7'>
                                 <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
                             </div>
+                            <div></div>
+                            <div className=' grid grid-cols-6 justify-center items-center col-span-7'>
+                                <div></div>
+                                <div></div>
+                                {battleStore.hoverLock  &&
+                                    <div>
+                                    <MenuButtonOk  className='w-full' text='OK'/>
+                                    </div>
+                                }
+                                {battleStore.hoverLock  &&
+                                    <div>
+                                    <MenuButtonCancel className='w-full' text='CANCEL'/>
+                                    </div>
+                                }
+
+                            </div>
+                            
 
                         </div>
+                            
                         {/* middle col */}
                         
                         {/* right col */}

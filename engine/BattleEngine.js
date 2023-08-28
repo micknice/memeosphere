@@ -29,7 +29,9 @@ class BattleEngine{
         this.round = 1
         this.playerMoveFirst = true
         this.playerAction = null
+        this.playerActionConfirmed = false
         this.playerTurnTaken = false
+        
         this.enemyAction = null
         this.enemyTurnTaken = false
         this.moveText = ''
@@ -46,9 +48,10 @@ class BattleEngine{
         this.playerMoveFirst = moveFirst
     }
 
-    executePlayerMove(moveName) {
+    executePlayerMove() {
+        const moveName = this.playerAction
         console.log('move', moveName)
-        if(!this.playerTurnTaken) {
+        if(!this.playerTurnTaken && this.playerActionConfirmed) {
             const pointType = this.playerBase.moves[moveName].cost[1]
             const cost = this.playerBase.moves[moveName].cost[0]
             console.log(pointType)
@@ -59,6 +62,14 @@ class BattleEngine{
             
             // this.playerTurnTaken = true
         }
+    }
+
+    executeRound() {
+        this.checkMoveOrder()
+        if(this.playerMoveFirst){
+
+        }
+
     }
     addCardToPSlot(memeCard) {
         // console.log('addcard invoked')
