@@ -10,11 +10,29 @@ import crossGray from '../public/assets/ui/pixelCrossGrey.png'
 import {useState, useEffect} from 'react'
 import {useSound} from 'use-sound'
 import menuPlink from '/assets/sfx/menuPlink.mp3'
+import { Shake } from 'reshake'
 
 
 
 
 const HeroCard = observer((props: any) => {
+
+    const [shake, setShake] = useState(false)
+
+    const [playHitSfx] = useSound('assets/sfx/liteExploSfx.mp3')
+
+    useEffect(() => {
+        if(battleStore.battleEngine.playerEffectsInProgress) {
+            playHitSfx()
+            setShake(true)
+            setTimeout(() => {
+                setShake(false)
+            }, 1000);
+        } else {
+            setShake(false)
+        }
+
+    })
     
     const altTxt1 = 'rounded-lg p-2 font-mono text-l text-gray-300 '
     const altTxt2 = 'rounded-lg p-2 font-mono text-l text-gray-600 '
@@ -91,7 +109,9 @@ const HeroCard = observer((props: any) => {
     }
     if (props.active) {
         return (
-            <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
+            <Shake dur={500} active={shake} fixed={true }className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl' h={10} v={0} r={3}>
+
+            {/* <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'> */}
                 {/* top div */}
                 <div className=' p-4 h-3/5'>
                     <div className='outline outline-4 rounded-lg h-full w-full p-4 flex-row bg-gradient-to-r from-blue-200 to-blue-900 '>
@@ -115,13 +135,15 @@ const HeroCard = observer((props: any) => {
                     </div>
             
                 </div>
-            </div>
+            {/* </div> */}
+            </Shake>
 
         )
     } else {
         // inactive
         return (
-            <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'>
+            <Shake dur={500} active={shake} fixed={true }className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl' h={10} v={0} r={3}>
+            {/* <div className='h-5/6 w-96 outline outline-8 rounded-lg bg-gradient-to-r from-gray-200 to-gray-300  relative  shadow-2xl'> */}
                 {/* top div */}
                 <div className=' p-4 h-3/5 '>
                     <div className='outline outline-4 rounded-lg h-full w-full p-2  grid grid-cols-7  bg-gradient-to-r from-blue-200 to-blue-900 '>
@@ -235,7 +257,8 @@ const HeroCard = observer((props: any) => {
                     </div>
             
                 </div>
-            </div>
+            {/* </div> */}
+            </Shake>
 
         )
     }

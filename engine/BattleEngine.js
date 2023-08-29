@@ -28,11 +28,12 @@ class BattleEngine{
         this.round = 1
         this.playerMoveFirst = true
         this.playerAction = null
+        this.playerEffectsInProgress = false
         this.playerActionConfirmed = false
         this.playerActionInProgress = false
         this.playActionSfx = 'assets/sfx/menuPulse.mp3'
         this.playerTurnTaken = false
-        // this.enemyEffectsInProgress = false
+        this.enemyEffectsInProgress = false
         this.enemyAction = null
         this.enemyActionInProgress = false
         this.enemyActionSfx = 'assets/sfx/flurrySfx.mp3'
@@ -60,7 +61,7 @@ class BattleEngine{
             const cost = this.playerBase.moves[moveName].cost[0]
             console.log(pointType)
             console.log(cost)
-            this.spendPoints(pointType, cost)
+            this.spendPoints(this.playerBase, pointType, cost)
             // this.enemyEffectsInProgress = true
             this.playerBase.moves[moveName].function(this.enemyBase)
             // this.addCardToPSlot(GigaChad)
@@ -69,41 +70,45 @@ class BattleEngine{
         }
     }
     
-    executeEnemyMove() {
-        const roll = Math.floor(Math.random() * 5);
+    async executeEnemyMove() {
+        // const roll = Math.floor(Math.random() * 5);
+        const roll = 0
         const movesArr = this.enemyBase.getMovesArr()
         const move = movesArr[roll]
         const pointType = move.cost[1]
         const cost = move.cost[0]
         if(this.enemyBase[pointType] < cost) {
-            this.executeEnemyMove()
+            if(this.enemyBase.ap >= 10 || this.enemyBase.mp >= 10) {
+                this.executeEnemyMove()
+            } else {
+                return
+            }
         } else {
-            
+            this.enemyAction = move.name
+            this.enemyActionSfx = move.sound
+            this.enemyActionInProgress = true
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            await delay(500)
+            this.enemyBase.img = this.playerBase.rageImg
+            await delay(1900)
+            this.enemyBase.img = this.playerBase.baseImg
+            this.playerEffectsInProgress = true
+            await delay(100)
+            this.spendPoints(this.enemyBase, pointType, cost)
+            move.function(this.playerBase)
+            await delay(200)
+            this.playerEffectsInProgress = false
         }
-
-
-    }
-    playerRoundReset() {
-        this.playerAction = null
-        this.playerActionConfirmed = false
-        this.playerActionInProgress = false
-        this.playActionSfx = 'assets/sfx/menuPulse.mp3'
-    }
-    playerRoundReset() {
-        this.enemyAction = null
-        this.enemyActionInProgress = false
-        this.enemyActionSfx = 'assets/sfx/flurrySfx.mp3'
     }
 
     async executeRound() {
-        // this.checkMoveOrder()
+        this.checkMoveOrder()
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         if(this.playerMoveFirst){
             const moveName = this.playerAction
             this.playActionSfx = this.playerBase.moves[moveName].sound
             this.playerActionInProgress = true
-            console.log('bbbb', this.playActionSfx)
 
-            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
             await delay(500)
             this.playerBase.img = this.playerBase.rageImg
             
@@ -116,13 +121,57 @@ class BattleEngine{
             this.enemyEffectsInProgress = false
             this.playerRoundReset()
 
-                
-                
+            if(this.enemyBase.hp > 0) {
+                await this.executeEnemyMove()
+                this.enemyRoundReset()
+                this.roundReset()
+            } else {
+                // logic for battle win here
+            }
+
+        } else {
+            await this.executeEnemyMove()
+            this.enemyRoundReset()
+            await delay(200)
+            const moveName = this.playerAction
+            this.playActionSfx = this.playerBase.moves[moveName].sound
+            this.playerActionInProgress = true
+
+            await delay(500)
+            this.playerBase.img = this.playerBase.rageImg
             
-            console.log('!T!', this.playerAction)
+            await delay(1900)
+            this.playerBase.img = this.playerBase.baseImg
+            this.enemyEffectsInProgress = true
+            await delay(100)
+            if(this.playerBase.hp > 0) {
+                this.executePlayerMove()
+                await delay(200)
+                this.enemyEffectsInProgress = false
+                this.playerRoundReset()
+                this.roundReset()
+            } else {
+                // logic for battle loss here
+            }
         }
 
     }
+    playerRoundReset() {
+        this.playerAction = null
+        // this.playerActionConfirmed = false
+        this.playerActionInProgress = false
+        this.playActionSfx = 'assets/sfx/menuPulse.mp3'
+    }
+    enemyRoundReset() {
+        this.enemyAction = null
+        this.enemyActionInProgress = false
+        this.enemyActionSfx = 'assets/sfx/flurrySfx.mp3'
+    }
+    roundReset() {
+      this.playerActionConfirmed = false  
+    }
+
+    
     addCardToPSlot(memeCard) {
         // console.log('addcard invoked')
         // let targetSlot = 'pCardSlot1'
@@ -142,9 +191,9 @@ class BattleEngine{
         // console.log('pcardslot1', this.pCardSlot1)
         this.pCardSlot1.img = memeCard.img
     }
-    spendPoints(pointType, cost) {
+    spendPoints(target, pointType, cost) {
         const finalValue = this.playerBase[pointType] - cost
-        this.playerBase[pointType] = finalValue
+        target[pointType] = finalValue
     }
 
     executeEnemyAction() {

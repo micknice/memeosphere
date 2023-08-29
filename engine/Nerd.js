@@ -27,7 +27,12 @@ class Nerd  {
             sound: 'assets/sfx/electricSfx.mp3',
             function: (enemy) => {
                 console.log('pre reassignment', this.moves)
-                enemy.hp = enemy.hp - 10
+                const hp = enemy.hp - 10
+                if(hp < 0) {
+                    enemy.hp = 0
+                } else {
+                    enemy.hp = hp
+                }
                 this.evolveMoveSet()
                 
                 console.log('moves', this.moves)
@@ -43,7 +48,12 @@ class Nerd  {
             sound: 'assets/sfx/flurrySfx.mp3',
             function: (enemy) => {
                 const roll = Math.floor(Math.random() * (20 - 1) + 1);
-                enemy.hp = enemy.hp - roll
+                const hp = enemy.hp - roll
+                if(hp < 0) {
+                    enemy.hp = 0
+                } else {
+                    enemy.hp = hp
+                }
             }
         },
         'BugFix': {
@@ -93,7 +103,12 @@ class Nerd  {
             cost: [15, 'ap'],
             level: 1,
             function: (enemy) => {
-                enemy.hp = enemy.hp - 20
+                const hp = enemy.hp - 20
+                if(hp < 0) {
+                    enemy.hp = 0
+                } else {
+                    enemy.hp = hp
+                }
             }
         },
         'D-20': {
@@ -105,7 +120,12 @@ class Nerd  {
             sound: 'assets/sfx/flurrySfx.mp3',
             function: (enemy) => {
                 const roll = Math.floor(Math.random() * (20 - 1) + 1);
-                enemy.hp = enemy.hp - roll
+                const hp = enemy.hp - roll
+                if(hp < 0) {
+                    enemy.hp = 0
+                } else {
+                    enemy.hp = hp
+                }
             }
         },
         'BugFix': {
@@ -209,7 +229,7 @@ class Nerd  {
     getMovesArr() {
         const moves = Object.values(this.moves)
         this.movesArr = moves
-        return moves
+        return this.movesArr
     }
     evolveMoveSet() {
         this.moves = this.evoMoves

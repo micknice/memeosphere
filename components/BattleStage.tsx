@@ -36,36 +36,47 @@ const HeroCard = observer((props: any) => {
     const [playMenuNegative] = useSound('assets/sfx/menuNegative.mp3')
     const [playMenuPulse] = useSound('assets/sfx/menuPulse.mp3')
     const [playMoveSfx] = useSound(battleStore.battleEngine.playActionSfx)
+    const [playEnemyMoveSfx] = useSound(battleStore.battleEngine.enemyActionSfx)
    
     useEffect(() => {
         const intervalId = setInterval(() => {
-            // setArrowImageSrc(prevSrc => prevSrc === arrowGreen ? arrowGray : arrowGreen);
             setAltTxtTW(prevSrc => prevSrc === altTxt1 ? altTxt2 : altTxt1);
             setAltTxtTW2(prevSrc => prevSrc === altTxt3 ? altTxt4 : altTxt3);
             setCrossImageSrc(prevSrc => prevSrc === crossRed ? crossGray : crossRed);
-            // playMenuPulse()
-            // if (apLow){playMenuPulse()}
         }, 1500);
         return () => clearInterval(intervalId); 
     }, [apLow]);
-    
+    // play Player attack sfx 
     useEffect(()=> {
-        console.log('llllll')
-        console.log('dddd', battleStore.battleEngine.playActionSfx)
-
         const awaitDelays = async () => {
             const delay = (ms : number) => new Promise(resolve => setTimeout(resolve, ms));
             await delay(500)
-            console.log('mmmm', battleStore.battleEngine.playActionSfx)
             playMoveSfx()
         }
         if(battleStore.battleEngine.playerActionInProgress) {
-            console.log('nnnnn', battleStore.battleEngine.playActionSfx)
             awaitDelays()
                 
         }
 
     }, [battleStore.battleEngine.playActionSfx])
+    // play enemy attack sfx
+    useEffect(()=> {
+        console.log('llllll')
+        console.log('dddd', battleStore.battleEngine.enemyActionSfx)
+
+        const awaitDelays = async () => {
+            const delay = (ms : number) => new Promise(resolve => setTimeout(resolve, ms));
+            await delay(500)
+            console.log('mmmm', battleStore.battleEngine.enemyActionSfx)
+            playEnemyMoveSfx()
+        }
+        if(battleStore.battleEngine.enemyActionInProgress) {
+            console.log('nnnnn', battleStore.battleEngine.enemyActionSfx)
+            awaitDelays()
+                
+        }
+
+    }, [battleStore.battleEngine.enemyActionSfx])
     const player = props.player
 
     let playerImg = Anonymous
@@ -87,11 +98,17 @@ const HeroCard = observer((props: any) => {
                                 {battleStore.battleEngine.playerActionInProgress &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.playerName} used {battleStore.battleEngine.playerAction}...</p>
                                 }
+                                {battleStore.battleEngine.enemyActionInProgress &&
+                                    <p className='p-2 font-mono text-xl text-white'>{battleStore.enemyName} used {battleStore.battleEngine.enemyAction}...</p>
+                                }
                             </div>
                             <div className='col-span-7'>
                                 {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
                                 }
+                                {/* {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
+                                    <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
+                                } */}
                             </div>
                             <div></div>
                             <div className=' grid grid-cols-6 justify-center items-center col-span-7'>

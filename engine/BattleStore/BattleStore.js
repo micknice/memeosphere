@@ -9,6 +9,7 @@ import {makeAutoObservable} from 'mobx'
 
 class BattleStore {
     playerName = 'Mike'
+    enemyName = 'Poindexter'
     battleEngine = new BattleEngine(player, enemy)
     initializePlayer = this.battleEngine.playerBase.initializeNewPlayer()
     initializeEnemy = this.battleEngine.enemyBase.initializeNewPlayer()
