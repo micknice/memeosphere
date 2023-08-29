@@ -41,11 +41,17 @@ const HeroCard = observer((props: any) => {
             setAltTxtTW(prevSrc => prevSrc === altTxt1 ? altTxt2 : altTxt1);
             setAltTxtTW2(prevSrc => prevSrc === altTxt3 ? altTxt4 : altTxt3);
             setCrossImageSrc(prevSrc => prevSrc === crossRed ? crossGray : crossRed);
-            // playMenuPulse()
-            // if (apLow){playMenuPulse()}
         }, 1500);
         return () => clearInterval(intervalId); 
     }, [apLow]);
+    
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setArrowImageSrc(prevSrc => prevSrc === arrowGreen ? arrowGray : arrowGreen);
+            
+        }, 750);
+        return () => clearInterval(intervalId); 
+    }, []);
 
     
     
@@ -71,7 +77,6 @@ const HeroCard = observer((props: any) => {
             battleStore.hoverVal = move
             battleStore.hoverLock = true
             battleStore.battleEngine.playerAction = move.name
-            // battleStore.battleEngine.executePlayerMove(move.name)
             playMenuSelect()
         }
     }
@@ -155,10 +160,34 @@ const HeroCard = observer((props: any) => {
                                             <p></p>
                                         </div>
                                     )
-                                } else {
+                                } else if (battleStore.hoverLock && move.name === battleStore.hoverVal.name && !battleStore.moveLock) {
                                     return (
                                         <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
                                             <Image src={arrowImageSrc} alt={''}/>
+                                            <p></p>
+                                        </div>
+                                    )
+
+                                } else if (battleStore.hoverLock && move.name === battleStore.hoverVal.name && battleStore.moveLock) {
+                                    return (
+                                        <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
+                                            <Image src={arrowImageSrc} alt={''}/>
+                                            <p></p>
+                                        </div>
+                                    )
+
+                                } else if (battleStore.hoverLock){
+                                    return (
+                                        <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
+                                            <Image src={arrowGray} alt={''}/>
+                                            <p></p>
+                                        </div>
+                                    )
+
+                                } else {
+                                    return (
+                                        <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
+                                            <Image src={arrowGreen} alt={''}/>
                                             <p></p>
                                         </div>
                                     )

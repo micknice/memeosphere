@@ -7,12 +7,24 @@ const MenuButtonOk = (props : any) => {
     const [playMenuPlink] = useSound('assets/sfx/menuPlink.mp3')
     const [playMenuSelect] = useSound('assets/sfx/menuSelect.mp3')
 
-    const handleOk = () => {
+    const handleOk = async() => {
         console.log('tttttt')
         battleStore.battleEngine.playerActionConfirmed = true
-        
-        battleStore.battleEngine.executeRound()
+        battleStore.moveLock = true
         playMenuSelect()
+        await battleStore.battleEngine.executeRound()
+        if(
+        battleStore.moveLock &&
+        battleStore.hoverLock &&
+        !battleStore.battleEngine.playerAction &&
+        !battleStore.battleEngine.playerActionConfirmed &&
+        !battleStore.battleEngine.playerActionInProgress
+        ) { 
+            battleStore.hoverLock = false
+            battleStore.moveLock = false
+            battleStore.hoverVal = battleStore.hoverValDefault
+        }
+
     }
     return (
         <div onClick={(event) => {handleOk()}}

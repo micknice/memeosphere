@@ -32,8 +32,10 @@ class BattleEngine{
         this.playerActionInProgress = false
         this.playActionSfx = 'assets/sfx/menuPulse.mp3'
         this.playerTurnTaken = false
-        this.enemyEffectsInProgress = false
+        // this.enemyEffectsInProgress = false
         this.enemyAction = null
+        this.enemyActionInProgress = false
+        this.enemyActionSfx = 'assets/sfx/flurrySfx.mp3'
         this.enemyTurnTaken = false
         this.moveText = ''
         
@@ -66,11 +68,31 @@ class BattleEngine{
             // this.playerTurnTaken = true
         }
     }
+    
+    executeEnemyMove() {
+        const roll = Math.floor(Math.random() * 5);
+        const movesArr = this.enemyBase.getMovesArr()
+        const move = movesArr[roll]
+        const pointType = move.cost[1]
+        const cost = move.cost[0]
+        if(this.enemyBase[pointType] < cost) {
+            this.executeEnemyMove()
+        } else {
+            
+        }
+
+
+    }
     playerRoundReset() {
         this.playerAction = null
         this.playerActionConfirmed = false
         this.playerActionInProgress = false
         this.playActionSfx = 'assets/sfx/menuPulse.mp3'
+    }
+    playerRoundReset() {
+        this.enemyAction = null
+        this.enemyActionInProgress = false
+        this.enemyActionSfx = 'assets/sfx/flurrySfx.mp3'
     }
 
     async executeRound() {
