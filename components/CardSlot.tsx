@@ -15,7 +15,6 @@ import {useSound} from 'use-sound'
 const CardSlot = observer((props : any) => {
 
     const [flipped, setFlipped] = useState(true)
-    // const [cardImg, setCardImg] = useState(CardBack)
 
     const [playMenuShwipp] = useSound('assets/sfx/menuShwipp.mp3')
     const [playMenuPop] = useSound('assets/sfx/menuPop.mp3')
@@ -28,13 +27,17 @@ const CardSlot = observer((props : any) => {
     
     const handleit = () => {
         console.log('!!!!!')
-        setFlipped(!flipped)
-        playMenuShwipp()
+        setTimeout(() => {
+            setFlipped(!flipped)
+            playMenuShwipp()
+
+        }, 1000)
         setTimeout(() => {
             playMenuPop();
         }, 320);
     }
     useEffect(() => {
+        console.log('AAAAAAAAAAA')
         handleit()
     },[cardImg])
 

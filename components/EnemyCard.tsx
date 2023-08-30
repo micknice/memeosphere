@@ -82,25 +82,7 @@ const EnemyCard = observer((props: any) => {
                 
                 <div className=' p-4 h-3/5 '>
                     <div className='outline outline-4 rounded-lg h-full w-full p-2  grid grid-cols-2  bg-gradient-to-r from-blue-100 to-blue-900 '>
-                        <div className='flex flex-col'>
-                            {enemy.movesArr.map((move : any) => {
-                                return (
-                                    <div onClick={(event) => handleMoveSelect(move)} className='  w-5/6 hover:scale-105 select-none' >
-                                        <p className='rounded-lg p-2 font-mono text-l text-white shadow-xl hover:scale-110'>{move.name}</p>
-                                        <p></p>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                        <div className='flex flex-col'>
-                            {enemy.movesArr.map((move : any) => {
-                                return (
-                                    <div className='  w-5/6 hover:scale-105 '>
-                                        <p className='rounded-lg p-2 font-mono text-l text-white shadow-xl hover:scale-110'>{move.name}</p>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        <p></p>
                         
                     </div>
 

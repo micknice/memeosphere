@@ -11,6 +11,8 @@ import {useState, useEffect} from 'react'
 import {useSound} from 'use-sound'
 import menuPlink from '/assets/sfx/menuPlink.mp3'
 import { Shake } from 'reshake'
+import Moony from '../public/assets/ui/moony.gif'
+
 
 
 
@@ -193,7 +195,7 @@ const HeroCard = observer((props: any) => {
                                 } else if (battleStore.hoverLock && move.name === battleStore.hoverVal.name && battleStore.moveLock) {
                                     return (
                                         <div  className='  w-full h-1/6 pt-2 pr-4 hover:scale-105 select-none col-span-2' >
-                                            <Image src={arrowImageSrc} alt={''}/>
+                                            <Image src={arrowGreen} alt={''}/>
                                             <p></p>
                                         </div>
                                     )
@@ -251,7 +253,15 @@ const HeroCard = observer((props: any) => {
                                 <p className='rounded-lg p-2 font-mono text-xl text-white shadow-xl'>MP: {player.mp}</p>
                             </div>
                             <div className='outline outline-4 rounded-lg h-full w-1/3 '>
-                                <Image className='h-full w-full' src={playerImg} alt={'/'}/>
+                                {battleStore.battleEngine.battleStatus === 0 &&
+                                    <Image className='h-full w-full' src={playerImg} alt={'/'}/>
+                                }
+                                {battleStore.battleEngine.battleStatus === 1 &&
+                                    <Image className='h-full w-full' src={Moony} alt={'/'}/>
+                                }
+                                {battleStore.battleEngine.battleStatus === 2 &&
+                                    <Image className='h-full w-full' src={playerImg} alt={'/'}/>
+                                }
                             </div>
 
                     </div>

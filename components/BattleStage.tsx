@@ -12,11 +12,16 @@ import {useSound} from 'use-sound'
 import menuPlink from '/assets/sfx/menuPlink.mp3'
 import MenuButtonOk from './MenuButtonOk'
 import MenuButtonCancel from './MenuButtonCancel'
+import Moony from '../public/assets/ui/moony.gif'
+import Typewriter from 'typewriter-effect';
+
 
 
 
 
 const HeroCard = observer((props: any) => {
+
+  
     
     const altTxt1 = 'rounded-lg p-2 font-mono text-l text-gray-300 '
     const altTxt2 = 'rounded-lg p-2 font-mono text-l text-gray-600 '
@@ -95,11 +100,17 @@ const HeroCard = observer((props: any) => {
                                 {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.name}:</p>
                                 }
-                                {battleStore.battleEngine.playerActionInProgress &&
+                                {battleStore.battleEngine.playerActionInProgress && battleStore.battleEngine.battleStatus === 0 &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.playerName} used {battleStore.battleEngine.playerAction}...</p>
                                 }
-                                {battleStore.battleEngine.enemyActionInProgress &&
+                                {battleStore.battleEngine.enemyActionInProgress && battleStore.battleEngine.battleStatus === 0 &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.enemyName} used {battleStore.battleEngine.enemyAction}...</p>
+                                }
+                                {battleStore.battleEngine.battleStatus === 1 &&
+                                    <p className='p-2 font-mono text-xl text-white'>GG EZ...</p>
+                                }
+                                {battleStore.battleEngine.battleStatus === 2 &&
+                                    <p className='p-2 font-mono text-xl text-white'>Get REKT nerd lmao...</p>
                                 }
                             </div>
                             <div className='col-span-7'>
@@ -109,9 +120,57 @@ const HeroCard = observer((props: any) => {
                                 {/* {battleStore.hoverVal.name  && !battleStore.battleEngine.playerActionConfirmed &&
                                     <p className='p-2 font-mono text-xl text-white'>{battleStore.hoverVal.effect}</p>
                                 } */}
+                                {/* {battleStore.battleEngine.battleStatus === 1 &&
+                                    <Image className='rounded-lg ' src={Moony} alt={''}/>
+                                } */}
                             </div>
                             <div></div>
                             <div className=' grid grid-cols-6 justify-center items-center col-span-7'>
+                                {battleStore.battleEngine.playerActionInProgress && battleStore.battleEngine.battleStatus === 0 &&
+                                    <div className='p-2 font-mono text-xl text-white col-span-6 '>
+                                        <Typewriter options={{delay: 20}} onInit={(typewriter) => {
+                                            typewriter.typeString('---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---{-----}-->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .start()
+                                        }}/>
+                                    </div>
+                                }
+                                {battleStore.battleEngine.enemyActionInProgress && battleStore.battleEngine.battleStatus === 0 &&
+                                    <div className='p-2 font-mono text-xl text-white col-span-6 rotate-180'>
+                                        <Typewriter options={{delay: 15}} onInit={(typewriter) => {
+                                            typewriter.typeString('---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---{-----}-->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .pauseFor(100)
+                                            .typeString(' ---->')
+                                            .callFunction(() => {
+                                                battleStore.eAttackUploaded = true
+                                                console.log('callback')
+                                            })
+                                            .start()
+
+                                        }}/>
+                                    </div>
+                                }
                                 <div></div>
                                 <div></div>
                                 {battleStore.hoverLock  && !battleStore.battleEngine.playerActionConfirmed &&

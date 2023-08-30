@@ -18,6 +18,8 @@ class BattleStore {
     hoverVal = {effect: null, name: null}
     hoverLock = false
     moveLock = false
+    uiState = 0
+    eAttackUploaded = false
     constructor(player, enemy) {
         console.log(player)
         

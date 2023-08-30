@@ -43,7 +43,7 @@ const Battle = observer(() => {
                     
                 </div>
                 <div className=" flex justify-center items-center">
-
+                {/* <Image className="pt0" src={Memeosphere} alt={""}/> */}
                     {/* <Image src={battleStore.battleEngine.pCardSlot1.img} alt={""}/> */}
                 </div>
                 <div className="  outline-yellow-500 row-span-1 p-10   flex flex-row justify-start items-start " >
@@ -67,8 +67,8 @@ const Battle = observer(() => {
                 {/* <div className="outline"></div>
                 <div className="outline"></div>
                 <div className="outline"></div> */}
-                <div className=""></div>
-                <div className=" flex justify-center items-start"><Image className="" src={Memeosphere} alt={""}/></div>
+                <div className=" flex justify-center items-start"></div>
+                <div className=" flex justify-center items-start"></div>
                 <div className=""></div>
                 <div className="  px-10 h-full row-span-5 flex flex-col justify-end items-start " >
                 <HeroCard 

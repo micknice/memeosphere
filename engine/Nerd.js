@@ -68,7 +68,7 @@ class Nerd  {
         'Giga-Brain': {
             name: 'Giga-Brain',
             target: 'self',
-            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            effect: 'Applies a percentage buff to Introspection stat',
             cost: [20, 'mp'],
             level: 1,
             sound: 'assets/sfx/powerUpLongSfx.mp3',
@@ -77,20 +77,22 @@ class Nerd  {
         'SwagHammer': {
             name: 'SwagHammer',
             target: 'self',
-            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            effect: 'Temporary immunity to enemy status influence',
             cost: [20, 'mp'],
             level: 1,
             sound: 'assets/sfx/gigHitSfx.mp3',
             function: () => {}
         },
-        'Fedora': {
-            name: 'Fedora',
+        'Mind>Matter': {
+            name: 'Mind>Matter',
             target: 'self',
-            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            effect: 'Converts a small amount of MP to AP, conversion efficiency scales with Introspection stat',
             cost: [20, 'mp'],
             level: 1,
             sound: 'assets/sfx/littlePowerUpSfx.mp3',
-            function: () => {}
+            function: () => {
+                this.ap += 20
+            }
         }
         
     }
@@ -102,6 +104,7 @@ class Nerd  {
             effect: 'Deals mid-damage',
             cost: [15, 'ap'],
             level: 1,
+            sound: 'assets/sfx/magicAttack1Sfx.mp3',
             function: (enemy) => {
                 const hp = enemy.hp - 20
                 if(hp < 0) {
@@ -155,14 +158,16 @@ class Nerd  {
             sound: 'assets/sfx/gigHitSfx.mp3',
             function: () => {}
         },
-        'Fedora': {
-            name: 'Fedora',
+        'Mind>Matter': {
+            name: 'Mind>Matter',
             target: 'self',
-            effect: 'Has a percentage chance of disabling an offensive card which has been injected into players stack',
+            effect: 'Converts a small amount of MP to AP, conversion efficiency scales with Introspection stat',
             cost: [20, 'mp'],
             level: 1,
             sound: 'assets/sfx/littlePowerUpSfx.mp3',
-            function: () => {}
+            function: () => {
+                this.ap += 20
+            }
         }
         
     }
